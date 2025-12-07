@@ -24,55 +24,53 @@
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 30px;
+            padding: 20px; /* Reduced padding for mobile screens */
             background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
             color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Aligned to the top for better mobile scrolling */
         }
-
+        
+        /* Ensures container takes full width on small screens */
         .checklist-container {
             max-width: 750px;
             width: 100%;
             background: #ffffff;
-            padding: 40px;
+            padding: 25px; /* Reduced padding for mobile screens */
             border-radius: 16px;
             box-shadow: var(--shadow);
+            margin-top: 20px; /* Space from the top */
         }
 
         /* HEADER */
         h2 {
             text-align: center;
             color: var(--primary-color);
-            font-size: 2em;
+            font-size: 1.8em; /* Slightly smaller on mobile */
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         
         /* POLICY NOTE */
         .policy-note {
             background-color: #fff3cd; 
             color: #856404; 
-            padding: 15px 20px;
-            margin-bottom: 30px;
+            padding: 15px;
+            margin-bottom: 20px;
             border-radius: 8px;
             border-left: 5px solid var(--warning-color); 
-            font-size: 0.95em;
-            line-height: 1.4;
-        }
-        .policy-note strong {
-            font-weight: 600;
+            font-size: 0.9em; 
         }
 
         /* TASK ITEMS */
         .task-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Aligned to the start for multi-line tasks */
             background-color: var(--bg-light);
-            padding: 15px 20px;
-            margin-bottom: 12px;
+            padding: 12px 15px; /* Reduced padding */
+            margin-bottom: 10px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
@@ -83,18 +81,24 @@
             border-color: var(--primary-color);
         }
         
-        /* CHECKBOX STYLING */
+        /* CHECKBOX STYLING - Adjusted for mobile touch targets */
         input[type="checkbox"] {
+            /* Ensures compatibility across browsers */
             appearance: none;
             -webkit-appearance: none;
-            width: 24px;
-            height: 24px;
+            
+            /* Larger size for easy tapping on mobile */
+            width: 28px;
+            height: 28px;
+            min-width: 28px; /* Fixed width to prevent wrapping issues */
+            
             border: 2px solid var(--text-light);
             border-radius: 50%;
             margin-right: 15px;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
+            flex-shrink: 0; /* Prevents checkbox from shrinking */
         }
 
         input[type="checkbox"]:checked {
@@ -108,9 +112,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 14px;
+            font-size: 16px; /* Larger checkmark */
             color: white;
             line-height: 1;
+            font-weight: 600;
         }
 
         /* TEXT STYLING */
@@ -119,18 +124,22 @@
             font-size: 1em;
             line-height: 1.4;
             transition: color 0.3s;
+            padding-top: 3px; /* Vertical alignment fix for multi-line text */
         }
-
+        
+        /* TECHNICAL NOTE ADJUSTMENTS for small screens */
         .technical-note {
+            display: block; /* Forces command onto its own line on small screens */
             font-family: 'Consolas', monospace;
-            background-color: #e9f0ff; /* Light blue background */
+            background-color: #e9f0ff; 
             color: var(--primary-color); 
-            padding: 4px 8px;
+            padding: 3px 6px;
             border-radius: 4px;
-            font-size: 0.85em;
+            font-size: 0.8em; /* Slightly smaller text */
             font-weight: 600;
-            margin-left: 15px;
-            white-space: nowrap; /* Keep command on one line */
+            margin-top: 5px;
+            margin-left: 0; /* Remove left margin for block display */
+            word-break: break-word; /* Allows long commands to wrap */
         }
 
         /* COMPLETED STATE */
@@ -140,21 +149,18 @@
             color: var(--text-light);
         }
 
-        .task-completed .technical-note {
-            background-color: var(--border-color);
-        }
-
         /* RESET BUTTON */
         .reset-button {
             display: block;
-            margin: 40px auto 0;
+            margin: 30px auto 0;
             padding: 12px 25px;
+            font-size: 1em;
+            /* Same styling as previous version */
             background-color: var(--danger-color);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1em;
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(220, 53, 69, 0.4);
@@ -164,6 +170,21 @@
             background-color: #c82333;
             box-shadow: 0 6px 15px rgba(220, 53, 69, 0.6);
             transform: translateY(-2px);
+        }
+
+        /* MEDIA QUERY: Revert specific changes for larger screens (e.g., desktops) */
+        @media (min-width: 600px) {
+            .task-item {
+                align-items: center; /* Center vertically on large screens */
+            }
+            .task-description {
+                padding-top: 0;
+            }
+            .technical-note {
+                display: inline; /* Keep command inline with the text on large screens */
+                margin-left: 15px;
+                margin-top: 0;
+            }
         }
     </style>
 </head>
@@ -242,7 +263,7 @@
 </div>
 
 <script>
-    const STORAGE_KEY = 'monthlyChecklistStatus_V2'; // Changed key to avoid conflict with old version
+    const STORAGE_KEY = 'monthlyChecklistStatus_V2';
     
     // --- Load State from Local Storage ---
     function loadChecklistState() {
@@ -284,7 +305,7 @@
             } else {
                 item.classList.remove('task-completed');
             }
-            saveChecklistState(); // Save after every change
+            saveChecklistState(); 
         });
     });
 
@@ -295,7 +316,7 @@
                 checkbox.checked = false;
                 checkbox.closest('.task-item').classList.remove('task-completed');
             });
-            localStorage.removeItem(STORAGE_KEY); // Clear saved data
+            localStorage.removeItem(STORAGE_KEY); 
             alert("Checklist has been successfully reset!");
         }
     };
@@ -305,5 +326,4 @@
 </script>
 
 </body>
-
 </html>
