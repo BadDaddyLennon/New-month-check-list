@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First of the Month Checklist</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* BASE STYLES & LAYOUT */
+        :root {
+            --primary-color: #007bff;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --text-dark: #343a40;
+            --text-light: #6c757d;
+            --bg-light: #f8f9fa;
+            --border-color: #e9ecef;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .checklist-container {
+            max-width: 750px;
+            width: 100%;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        /* HEADER */
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        /* POLICY NOTE */
+        .policy-note {
+            background-color: #fff3cd; 
+            color: #856404; 
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border-left: 5px solid var(--warning-color); 
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+        .policy-note strong {
+            font-weight: 600;
+        }
+
+        /* TASK ITEMS */
+        .task-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-light);
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-color);
+        }
+        
+        /* CHECKBOX STYLING */
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-light);
+            border-radius: 50%;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        input[type="checkbox"]:checked {
+            border-color: var(--success-color);
+            background-color: var(--success-color);
+        }
+
+        input[type="checkbox"]:checked::after {
+            content: '✔';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: white;
+            line-height: 1;
+        }
+
+        /* TEXT STYLING */
+        .task-description {
+            flex-grow: 1;
+            font-size: 1em;
+            line-height: 1.4;
+            transition: color 0.3s;
+        }
+
+        .technical-note {
+            font-family: 'Consolas', monospace;
+            background-color: #e9f0ff; /* Light blue background */
+            color: var(--primary-color); 
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 15px;
+            white-space: nowrap; /* Keep command on one line */
+        }
+
+        /* COMPLETED STATE */
+        .task-completed .task-description,
+        .task-completed .technical-note {
+            text-decoration: line-through;
+            color: var(--text-light);
+        }
+
+        .task-completed .technical-note {
+            background-color: var(--border-color);
+        }
+
+        /* RESET BUTTON */
+        .reset-button {
+            display: block;
+            margin: 40px auto 0;
+            padding: 12px 25px;
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.4);
+        }
+
+        .reset-button:hover {
+            background-color: #c82333;
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.6);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="checklist-container">
+    
+    <h2>First of the Month Checklist</h2>
+    
+    <div class="policy-note">
+        ⚠️ **POLICY NOTE:** In the event of any leaderboards being tied, please use the **Wheel of Names** to determine a winner.
+    </div>
+    
+    <div id="checklist">
+        
+        <div class="task-item" data-task-id="task-1">
+            <input type="checkbox" class="task-checkbox" id="check-1">
+            <label for="check-1" class="task-description">
+                Remove the previous month's Legend.
+                <span class="technical-note">Permissions.Remove &lt;EOSID&gt; Legend</span>
+            </label>
+        </div>
+        
+        <div class="task-item" data-task-id="task-2">
+            <input type="checkbox" class="task-checkbox" id="check-2">
+            <label for="check-2" class="task-description">
+                Add this month's new Legend.
+                <span class="technical-note">Permissions.Add &lt;EOSID&gt; Legend</span>
+            </label>
+        </div>
+        
+        <div class="task-item" data-task-id="task-3">
+            <input type="checkbox" class="task-checkbox" id="check-3">
+            <label for="check-3" class="task-description">
+                Check both old and new Legends permissions.
+                <span class="technical-note">Permissions.PlayerGroups &lt;EOSID&gt;</span>
+            </label>
+        </div>
+        
+        <div class="task-item" data-task-id="task-4">
+            <input type="checkbox" class="task-checkbox" id="check-4">
+            <label for="check-4" class="task-description">
+                Add points to the new Legend.
+                <span class="technical-note">5k</span>
+            </label>
+        </div>
+        
+        <div class="task-item" data-task-id="task-5">
+            <input type="checkbox" class="task-checkbox" id="check-5">
+            <label for="check-5" class="task-description">
+                Add points to the top 3 in the accessories leaderboard.
+                <span class="technical-note">1st: 5k, 2nd: 3k, 3rd: 1k</span>
+            </label>
+        </div>
+        
+        <div class="task-item" data-task-id="task-6">
+            <input type="checkbox" class="task-checkbox" id="check-6">
+            <label for="check-6" class="task-description">
+                Reward 1st place in voting with either a mod map or something else.
+                <span class="technical-note">Requires Manual Check</span>
+            </label>
+        </div>
+        
+        <div class="task-item" data-task-id="task-7">
+            <input type="checkbox" class="task-checkbox" id="check-7">
+            <label for="check-7" class="task-description">
+                **Congratulate Legends and all winners** (e.g., via announcement, forum post).
+                <span class="technical-note">Community Engagement</span>
+            </label>
+        </div>
+
+    </div>
+
+    <button class="reset-button" onclick="resetChecklist()">Reset All Tasks for Next Month</button>
+    
+</div>
+
+<script>
+    const STORAGE_KEY = 'monthlyChecklistStatus_V2'; // Changed key to avoid conflict with old version
+    
+    // --- Load State from Local Storage ---
+    function loadChecklistState() {
+        const savedState = localStorage.getItem(STORAGE_KEY);
+        if (savedState) {
+            const status = JSON.parse(savedState);
+            document.querySelectorAll('.task-item').forEach(item => {
+                const id = item.getAttribute('data-task-id');
+                const checkbox = item.querySelector('.task-checkbox');
+                
+                if (status.hasOwnProperty(id) && status[id]) {
+                    checkbox.checked = true;
+                    item.classList.add('task-completed');
+                } else {
+                    checkbox.checked = false;
+                    item.classList.remove('task-completed');
+                }
+            });
+        }
+    }
+
+    // --- Save State to Local Storage ---
+    function saveChecklistState() {
+        const status = {};
+        document.querySelectorAll('.task-item').forEach(item => {
+            const id = item.getAttribute('data-task-id');
+            const checkbox = item.querySelector('.task-checkbox');
+            status[id] = checkbox.checked;
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(status));
+    }
+
+    // --- Handle Checkbox Change ---
+    document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+            const item = event.target.closest('.task-item');
+            if (event.target.checked) {
+                item.classList.add('task-completed');
+            } else {
+                item.classList.remove('task-completed');
+            }
+            saveChecklistState(); // Save after every change
+        });
+    });
+
+    // --- Reset Function ---
+    window.resetChecklist = function() {
+        if (confirm("Are you sure you want to reset the checklist for the new month? All tasks will be unchecked.")) {
+            document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.closest('.task-item').classList.remove('task-completed');
+            });
+            localStorage.removeItem(STORAGE_KEY); // Clear saved data
+            alert("Checklist has been successfully reset!");
+        }
+    };
+
+    // Load state when the page first loads
+    document.addEventListener('DOMContentLoaded', loadChecklistState);
+</script>
+
+</body>
+</html>
