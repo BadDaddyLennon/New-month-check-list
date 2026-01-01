@@ -24,36 +24,33 @@
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 20px; /* Reduced padding for mobile screens */
+            padding: 20px;
             background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
             color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Aligned to the top for better mobile scrolling */
+            align-items: flex-start;
         }
         
-        /* Ensures container takes full width on small screens */
         .checklist-container {
             max-width: 750px;
             width: 100%;
             background: #ffffff;
-            padding: 25px; /* Reduced padding for mobile screens */
+            padding: 25px;
             border-radius: 16px;
             box-shadow: var(--shadow);
-            margin-top: 20px; /* Space from the top */
+            margin-top: 20px;
         }
 
-        /* HEADER */
         h2 {
             text-align: center;
             color: var(--primary-color);
-            font-size: 1.8em; /* Slightly smaller on mobile */
+            font-size: 1.8em;
             font-weight: 700;
             margin-bottom: 25px;
         }
         
-        /* POLICY NOTE */
         .policy-note {
             background-color: #fff3cd; 
             color: #856404; 
@@ -64,12 +61,11 @@
             font-size: 0.9em; 
         }
 
-        /* TASK ITEMS */
         .task-item {
             display: flex;
-            align-items: flex-start; /* Aligned to the start for multi-line tasks */
+            align-items: flex-start;
             background-color: var(--bg-light);
-            padding: 12px 15px; /* Reduced padding */
+            padding: 12px 15px;
             margin-bottom: 10px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -81,24 +77,19 @@
             border-color: var(--primary-color);
         }
         
-        /* CHECKBOX STYLING - Adjusted for mobile touch targets */
         input[type="checkbox"] {
-            /* Ensures compatibility across browsers */
             appearance: none;
             -webkit-appearance: none;
-            
-            /* Larger size for easy tapping on mobile */
             width: 28px;
             height: 28px;
-            min-width: 28px; /* Fixed width to prevent wrapping issues */
-            
+            min-width: 28px;
             border: 2px solid var(--text-light);
             border-radius: 50%;
             margin-right: 15px;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
-            flex-shrink: 0; /* Prevents checkbox from shrinking */
+            flex-shrink: 0;
         }
 
         input[type="checkbox"]:checked {
@@ -112,50 +103,44 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 16px; /* Larger checkmark */
+            font-size: 16px;
             color: white;
             line-height: 1;
             font-weight: 600;
         }
 
-        /* TEXT STYLING */
         .task-description {
             flex-grow: 1;
             font-size: 1em;
             line-height: 1.4;
             transition: color 0.3s;
-            padding-top: 3px; /* Vertical alignment fix for multi-line text */
+            padding-top: 3px;
         }
         
-        /* TECHNICAL NOTE ADJUSTMENTS for small screens */
         .technical-note {
-            display: block; /* Forces command onto its own line on small screens */
+            display: block;
             font-family: 'Consolas', monospace;
             background-color: #e9f0ff; 
             color: var(--primary-color); 
             padding: 3px 6px;
             border-radius: 4px;
-            font-size: 0.8em; /* Slightly smaller text */
+            font-size: 0.8em;
             font-weight: 600;
             margin-top: 5px;
-            margin-left: 0; /* Remove left margin for block display */
-            word-break: break-word; /* Allows long commands to wrap */
+            word-break: break-word;
         }
 
-        /* COMPLETED STATE */
         .task-completed .task-description,
         .task-completed .technical-note {
             text-decoration: line-through;
             color: var(--text-light);
         }
 
-        /* RESET BUTTON */
         .reset-button {
             display: block;
             margin: 30px auto 0;
             padding: 12px 25px;
             font-size: 1em;
-            /* Same styling as previous version */
             background-color: var(--danger-color);
             color: white;
             border: none;
@@ -172,16 +157,11 @@
             transform: translateY(-2px);
         }
 
-        /* MEDIA QUERY: Revert specific changes for larger screens (e.g., desktops) */
         @media (min-width: 600px) {
-            .task-item {
-                align-items: center; /* Center vertically on large screens */
-            }
-            .task-description {
-                padding-top: 0;
-            }
+            .task-item { align-items: center; }
+            .task-description { padding-top: 0; }
             .technical-note {
-                display: inline; /* Keep command inline with the text on large screens */
+                display: inline;
                 margin-left: 15px;
                 margin-top: 0;
             }
@@ -203,7 +183,7 @@
         <div class="task-item" data-task-id="task-1">
             <input type="checkbox" class="task-checkbox" id="check-1">
             <label for="check-1" class="task-description">
-                Remove the previous month's Legend.
+                Remove the previous month's Legend from **Discord** and **in-game**.
                 <span class="technical-note">Permissions.Remove &lt;EOSID&gt; Legend</span>
             </label>
         </div>
@@ -211,7 +191,7 @@
         <div class="task-item" data-task-id="task-2">
             <input type="checkbox" class="task-checkbox" id="check-2">
             <label for="check-2" class="task-description">
-                Add this month's new Legend.
+                Add this month's new Legend to **Discord** and **in-game**.
                 <span class="technical-note">Permissions.Add &lt;EOSID&gt; Legend</span>
             </label>
         </div>
@@ -265,7 +245,6 @@
 <script>
     const STORAGE_KEY = 'monthlyChecklistStatus_V2';
     
-    // --- Load State from Local Storage ---
     function loadChecklistState() {
         const savedState = localStorage.getItem(STORAGE_KEY);
         if (savedState) {
@@ -285,7 +264,6 @@
         }
     }
 
-    // --- Save State to Local Storage ---
     function saveChecklistState() {
         const status = {};
         document.querySelectorAll('.task-item').forEach(item => {
@@ -296,7 +274,6 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(status));
     }
 
-    // --- Handle Checkbox Change ---
     document.querySelectorAll('.task-checkbox').forEach(checkbox => {
         checkbox.addEventListener('change', (event) => {
             const item = event.target.closest('.task-item');
@@ -309,7 +286,6 @@
         });
     });
 
-    // --- Reset Function ---
     window.resetChecklist = function() {
         if (confirm("Are you sure you want to reset the checklist for the new month? All tasks will be unchecked.")) {
             document.querySelectorAll('.task-checkbox').forEach(checkbox => {
@@ -321,7 +297,6 @@
         }
     };
 
-    // Load state when the page first loads
     document.addEventListener('DOMContentLoaded', loadChecklistState);
 </script>
 
